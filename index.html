@@ -166,6 +166,37 @@ tbody tr{animation:none}tbody tr:hover{background:rgba(255,255,255,.65);box-shad
 .sr{min-width:100%}.bar .ex{flex:1;justify-content:center;padding:10px 8px;min-height:42px}.tw{max-height:calc(100dvh - 300px)}
 #md{padding:18px;max-height:90dvh}#toast{bottom:calc(20px + env(safe-area-inset-bottom));max-width:90vw;text-align:center}#sh{padding:8px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* ===== JENDELA SASARAN MUTU ===== */
+@property --sa{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes sma{to{--sa:360deg}}
+@keyframes smi{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
+#sm{position:fixed;inset:0;z-index:85;display:flex;justify-content:center;align-items:stretch;padding:26px;visibility:hidden;opacity:0;background:radial-gradient(60vmax 50vmax at 18% 8%,rgba(47,123,234,.38),transparent 60%),radial-gradient(50vmax 45vmax at 92% 96%,rgba(200,32,47,.30),transparent 60%),rgba(6,20,52,.58);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);transition:opacity .35s ease,padding .45s ease,visibility 0s .5s}
+#sm.on{visibility:visible;opacity:1;transition:opacity .35s ease,padding .45s ease}
+#sm.mx{padding:0}
+.smw{position:relative;width:min(1360px,100%);display:flex;flex-direction:column;overflow:hidden;border-radius:26px;background:linear-gradient(160deg,rgba(255,255,255,.9),rgba(232,240,253,.8));box-shadow:0 60px 140px rgba(2,10,35,.6),inset 0 1px 0 #fff;transform-origin:var(--ox,50%) var(--oy,50%);transform:translateY(30px) scale(.4);opacity:0;filter:blur(12px);transition:transform .32s cubic-bezier(.5,0,.9,.4),opacity .25s ease,filter .3s ease,border-radius .45s ease,width .45s ease}
+#sm.on .smw{transform:none;opacity:1;filter:none;transition:transform .6s var(--sp),opacity .35s ease,filter .45s ease,border-radius .45s ease,width .45s ease}
+#sm.mx .smw{width:100%;border-radius:0}
+.smg{position:absolute;inset:0;z-index:5;border-radius:inherit;padding:2px;pointer-events:none;background:conic-gradient(from var(--sa),#2f7bea,#06b6d4,#fff 30%,#c8202f 55%,#f59e0b 75%,#2f7bea);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:sma 6s linear infinite}
+.smh{display:flex;align-items:center;gap:12px;padding:12px 14px 12px 18px;background:rgba(255,255,255,.6);border-bottom:1px solid rgba(15,63,143,.1)}
+.sml{display:flex;gap:9px;flex:none}
+.sd{position:relative;width:15px;height:15px;border:0;border-radius:50%;cursor:pointer;padding:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18);transition:transform .2s var(--sp)}
+.sd::after{position:absolute;inset:0;font-size:11px;font-weight:800;line-height:15px;text-align:center;color:rgba(0,0,0,.6);opacity:0;transition:opacity .15s}
+.sd.r{background:#ff5f57}.sd.r::after{content:"×"}.sd.g{background:#28c840}.sd.g::after{content:"+"}
+.sml:hover .sd::after,.sd:focus-visible::after{opacity:1}.sd:hover{transform:scale(1.2)}
+.smt{flex:1;min-width:0;display:flex;align-items:center;gap:11px}
+.smk{flex:none;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#2f7bea,#0f3f8f);box-shadow:0 6px 16px rgba(15,63,143,.35),inset 0 1px 0 rgba(255,255,255,.45)}
+.smk svg{width:19px;height:19px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.smt>div{min-width:0;line-height:1.25}.smt b{display:block;font-size:15px;color:var(--nv)}.smt small{display:block;font-size:12px;font-weight:600;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.smc{position:relative;flex:1;min-height:0;background:linear-gradient(160deg,#eef4ff,#dde8fb)}
+.smc iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;opacity:0;transform:scale(.985);transition:opacity .5s ease,transform .6s var(--sp)}
+.smc.ok iframe{opacity:1;transform:none}
+.smp{position:absolute;left:0;right:0;top:0;height:3px;z-index:2;overflow:hidden;transition:opacity .4s}
+.smp i{display:block;width:38%;height:100%;border-radius:3px;background:linear-gradient(90deg,#2f7bea,#06b6d4,#c8202f);animation:smi 1.1s ease-in-out infinite}
+.sms{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--nv);font-weight:700}
+.smo{width:54px;height:54px;border-radius:50%;border:5px solid rgba(15,63,143,.12);border-top-color:#2f7bea;border-right-color:#c8202f;animation:spin .9s linear infinite}
+.sms a{font-size:12px;font-weight:600;color:var(--p);text-decoration:none}.sms a[hidden]{display:none}
+.smc.ok .smp{opacity:0}.smc.ok .sms{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
+@media(max-width:860px){#sm{padding:0}.smw{width:100%;border-radius:0}.smh{padding:calc(10px + env(safe-area-inset-top)) 10px 10px 14px}.smt small{display:none}.sd{width:18px;height:18px;line-height:18px}#smz{display:none}}
 </style></head><body>
 
 <div id="load"><div class="lw"><div class="ld"><div class="a"></div><div class="b"></div><div class="c">⚙️</div>
@@ -188,6 +219,7 @@ tbody tr{animation:none}tbody tr:hover{background:rgba(255,255,255,.65);box-shad
   <header id="top"><button class="tb" id="burger" title="Ciutkan / tampilkan menu" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button><h2 id="ttl"></h2>
    <div id="clk"><b id="ct"></b><small id="cd"></small></div>
    <button class="tb wd" id="shb" title="Buka spreadsheet Sales Order"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M4 9h16M4 15h16M10 9v12"/></svg><span class="l">Sheet SO</span></button>
+   <button class="tb wd" id="smb" title="Buka Sasaran Mutu Engineering"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg><span class="l">Sasaran Mutu</span></button>
    <button class="tb" id="rf" title="Muat ulang data" aria-label="Muat ulang data"><svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.5 4.5L20 16M20 20v-4h-4"/></svg></button>
    <div class="usr"><div><b id="un"></b><small id="ur"></small></div><span class="av" id="av"></span></div>
    <button class="tb" id="out" title="Keluar">🚪</button></header>
@@ -195,7 +227,14 @@ tbody tr{animation:none}tbody tr:hover{background:rgba(255,255,255,.65);box-shad
  </div>
 </div>
 <div id="ov"><div id="md"></div></div>
-<div id="sh"><div class="hd"><b>Spreadsheet · Sales Order</b><a class="tb wd" id="sht" target="_blank" rel="noopener"><span>↗</span><span class="l">Tab baru</span></a><button class="tb" id="shx" aria-label="Tutup">✖</button></div><iframe id="shf" title="Sheet Sales Order"></iframe></div><div id="toast"></div>
+<div id="sh"><div class="hd"><b>Spreadsheet · Sales Order</b><a class="tb wd" id="sht" target="_blank" rel="noopener"><span>↗</span><span class="l">Tab baru</span></a><button class="tb" id="shx" aria-label="Tutup">✖</button></div><iframe id="shf" title="Sheet Sales Order"></iframe></div><div id="sm" aria-hidden="true"><div class="smw" role="dialog" aria-modal="true" aria-label="Sasaran Mutu"><i class="smg"></i>
+ <div class="smh"><div class="sml"><button class="sd r" id="smx" aria-label="Tutup jendela" title="Tutup"></button><button class="sd g" id="smz" aria-label="Perbesar atau perkecil jendela" title="Perbesar / perkecil"></button></div>
+  <div class="smt"><span class="smk"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></span><div><b>Sasaran Mutu</b><small>Pencapaian sasaran mutu Engineering</small></div></div>
+  <button class="tb" id="smr" title="Muat ulang" aria-label="Muat ulang"><svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.5 4.5L20 16M20 20v-4h-4"/></svg></button>
+  <a class="tb wd" id="smn" target="_blank" rel="noopener"><span>↗</span><span class="l">Tab baru</span></a></div>
+ <div class="smc"><div class="smp"><i></i></div><div class="sms"><div class="smo"></div><span>Memuat Sasaran Mutu…</span><a id="smh" target="_blank" rel="noopener" hidden>Terlalu lama? Buka di tab baru</a></div><iframe id="smf" title="Sasaran Mutu Engineering" allow="fullscreen"></iframe></div>
+</div></div>
+<div id="toast"></div>
 
 <script>
 /* ====== KONFIGURASI: tempel URL Web App hasil deploy Code.gs di sini ====== */
@@ -246,6 +285,20 @@ document.querySelectorAll('[data-lg]').forEach(i=>i.src=LOGO);document.querySele
 (function(){const t=$('#ct'),d=$('#cd'),k=()=>{const n=new Date();t.textContent=n.toLocaleTimeString('id-ID',{hour12:false}).replace(/\./g,':');d.textContent=n.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'})};k();setInterval(k,1000)})();
 $('#shb').onclick=()=>{const f=$('#shf');if(!f.dataset.l){f.src=SHEET_URL.replace('?gid','?rm=minimal&gid');f.dataset.l=1}$('#sh').classList.add('on')};
 $('#sht').href=SHEET_URL;$('#shx').onclick=()=>$('#sh').classList.remove('on');
+/* ===== Jendela Sasaran Mutu (inframe) ===== */
+const SM_URL='https://murindasentrabaja.github.io/Sarmut_Engineering/';
+(()=>{const sm=$('#sm'),w=sm.querySelector('.smw'),f=$('#smf'),bd=sm.querySelector('.smc'),hint=$('#smh'),btn=$('#smb');let ft;
+const ready=()=>{clearTimeout(ft);bd.classList.add('ok');hint.hidden=true};
+const go=bust=>{bd.classList.remove('ok');hint.hidden=true;clearTimeout(ft);ft=setTimeout(()=>{if(!bd.classList.contains('ok'))hint.hidden=false},9000);f.src=bust?SM_URL+'?r='+Date.now():SM_URL};
+f.addEventListener('load',()=>{if(f.dataset.l)ready()});
+const open=()=>{const b=btn.getBoundingClientRect();w.style.setProperty('--ox',(b.left+b.width/2-w.offsetLeft)+'px');w.style.setProperty('--oy',(b.top+b.height/2-w.offsetTop)+'px');
+ if(!f.dataset.l){f.dataset.l=1;go()}sm.classList.add('on');sm.setAttribute('aria-hidden','false');setTimeout(()=>$('#smx').focus(),60)};
+const close=()=>{sm.classList.remove('on');sm.setAttribute('aria-hidden','true');btn.focus()};
+btn.onclick=open;$('#smx').onclick=close;$('#smr').onclick=()=>go(1);$('#smz').onclick=()=>sm.classList.toggle('mx');
+$('#smn').href=SM_URL;hint.href=SM_URL;
+sm.addEventListener('mousedown',e=>{if(e.target===sm)close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sm.classList.contains('on'))close()});
+})();
 /* login fx: jaring rangka baja + percikan las */
 (function(){const cv=$('#cv'),x=cv.getContext('2d'),L=$('#login'),lc=$('#lc');let W,H,D,N=[],P=[],m={x:-999,y:-999},run=0;
 const rs=()=>{D=Math.min(devicePixelRatio||1,2);W=cv.width=innerWidth*D;H=cv.height=innerHeight*D;N=Array.from({length:Math.round(Math.min(70,innerWidth*innerHeight/15000))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35*D,vy:(Math.random()-.5)*.35*D}))};
