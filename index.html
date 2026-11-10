@@ -97,6 +97,14 @@ th:hover{background:#e0e7ff}td{padding:11px 14px;border-top:1px solid #eef2f7;ma
 tbody tr{transition:.2s;cursor:pointer;animation:up .4s backwards}tbody tr:hover{background:linear-gradient(90deg,#eef2ff,#faf5ff);box-shadow:inset 4px 0 0 #6366f1}tbody tr:active{transform:scale(.995)}
 td.n{text-align:right;font-variant-numeric:tabular-nums}.neg{color:#dc2626;font-weight:700}
 .pl{display:inline-block;padding:3px 11px;border-radius:20px;font-size:11.5px;font-weight:700}
+.gb{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:-4px 0 14px}.gb>span{font-weight:700;color:var(--mut);margin-right:2px}
+.gc{padding:8px 15px;border-radius:20px;border:1.5px solid var(--line);background:#fff;font-weight:700;color:var(--mut);cursor:pointer;transition:.2s}
+.gc:hover{border-color:var(--p);color:var(--p)}.gc.on{background:var(--p);border-color:var(--p);color:#fff}.gc.s{background:transparent;border-style:dashed}
+tr.gh td{max-width:none;overflow:visible;font-weight:700;color:#1e1b4b;cursor:pointer;background:#eef2ff;white-space:nowrap}
+tr.gh[data-d="0"] td{background:#d9e2fb;font-size:14px}tr.gh[data-d="1"] td{background:#e5ebfc}tr.gh[data-d="3"] td{background:#f6f8ff;font-weight:600}
+.gar{display:inline-block;font-style:normal;margin-right:9px;color:var(--p);transition:transform .2s}.gar.o{transform:rotate(90deg)}
+.gm{margin-left:10px;padding:2px 10px;border-radius:20px;background:#fff;color:#475569;font-size:11.5px;font-weight:600}
+
 .g{background:#dcfce7;color:#15803d}.rd{background:#fee2e2;color:#b91c1c}.bl2{background:#dbeafe;color:#1d4ed8}.am{background:#fef3c7;color:#b45309}
 .pgw{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap;gap:8px;color:var(--mut);font-weight:600}
 .pg{border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px 12px;font-weight:700;margin-left:4px;transition:.2s var(--sp)}.pg:hover:not(:disabled){transform:translateY(-2px);background:#eef2ff}.pg:disabled{opacity:.4;cursor:default}
@@ -342,7 +350,7 @@ $('#rf').onclick=()=>go(S.cur,true);
 const getT=k=>S.cache[k]?Promise.resolve(S.cache[k]):(S.pf[k]||(S.pf[k]=api('table',{sheet:k}).then(r=>(S.token&&(S.cache[k]=r),r)).finally(()=>delete S.pf[k])));
 async function prefetch(){const ks=[];MODS.forEach(g=>g[1].forEach(m=>{if(m[0]!=='dash')ks.push(m[0])}));let i=0;const w=async()=>{while(i<ks.length&&S.token){try{await getT(ks[i++])}catch(e){}}};await Promise.all([w(),w()])}
 async function go(k,force){
- S.cur=k;S.q='';S.si=-1;S.pg=1;const m=title(k),rf=$('#rf');
+ S.cur=k;S.q='';S.si=-1;S.pg=1;S.gl=null;S.gc=null;const m=title(k),rf=$('#rf');
  document.querySelectorAll('.nav').forEach(a=>a.classList.toggle('on',a.dataset.k===k));
  $('#ttl').innerHTML=`<span>${m[2]}</span>${m[1]}`;
  const ready=!force&&(k==='dash'?S.cache.dash:S.cache[k]);if(force)delete S.cache[k];
@@ -378,7 +386,38 @@ function cell(v){if(v===''||v==null)return'<span style="color:#cbd5e1">—</span
  if(num(v))return`<span class="${v<0?'neg':''}">${v.toLocaleString('id-ID')}</span>`;
  const s=String(v);if(s.length<=24){const c=RG.test(s)?'g':RR.test(s)?'rd':RB.test(s)?'bl2':RA.test(s)?'am':'';if(c)return`<span class="pl ${c}">${esc(s)}</span>`}
  return esc(s)}
-function draw(){
+/* ===== GROUPING: Kategori > Customer > Bulan kirim > Tgl kirim diminta ===== */
+const GL=[['kat','Kategori'],['cust','Customer'],['bln','Bulan kirim'],['tgl','Tgl kirim diminta']],
+MN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],
+MS=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+function gkey(r,k,ix){const v=r[ix[k]];
+ if(k==='kat'||k==='cust'){const s=String(v==null?'':v).trim();return s?[s.toLowerCase(),s]:['zzzzzz',k==='kat'?'Tanpa kategori':'Tanpa customer']}
+ const m=/^(\d{1,2})-(\d{1,2})-(\d{4})$/.exec(String(v));if(!m)return[1e9,'Tanggal kirim belum diisi'];
+ const d=+m[1],mo=+m[2],y=+m[3];
+ return k==='bln'?[y*100+mo,MN[mo-1]+' '+y]:[y*10000+mo*100+d,d+' '+MS[mo-1]+' '+y]}
+function gbuild(it,lv,ix,dp,pp){if(dp>=lv.length)return null;const m=new Map();
+ it.forEach(t=>{const kl=gkey(t.r,lv[dp],ix),id=kl[0]+'|'+kl[1];let g=m.get(id);if(!g){g={k:kl[0],l:kl[1],it:[]};m.set(id,g)}g.it.push(t)});
+ return[...m.values()].sort((a,b)=>typeof a.k==='number'&&typeof b.k==='number'?a.k-b.k:String(a.k).localeCompare(String(b.k),'id',{numeric:true}))
+  .map(g=>{g.dp=dp;g.p=pp+'›'+g.l;g.ch=gbuild(g.it,lv,ix,dp+1,g.p);return g})}
+function gwalk(a,f){(a||[]).forEach(g=>{f(g);gwalk(g.ch,f)})}
+function draw(){drawF();gx()}
+function gx(){
+ const d=S.cache[S.cur],c=d.cols,ti=c.indexOf('Tanggal_Kirim_Diminta');if(ti<0)return;
+ const ix={kat:c.indexOf('Kategori'),cust:c.indexOf('Customer'),bln:ti,tgl:ti},av=GL.filter(l=>ix[l[0]]>=0);
+ if(!S.gl)S.gl=av.map(l=>l[0]);
+ const lv=av.map(l=>l[0]).filter(k=>S.gl.includes(k));
+ $('#view .bar').insertAdjacentHTML('afterend',`<div class="gb"><span>Kelompokkan</span>${av.map(l=>`<button class="gc${lv.includes(l[0])?' on':''}" data-l="${l[0]}">${l[1]}</button>`).join('')}${lv.length?'<button class="gc s" data-a="o">Buka semua</button><button class="gc s" data-a="c">Tutup semua</button>':''}</div>`);
+ const items=view().rows.map((r,i)=>({r,i}));if(!lv.length||!items.length)return;
+ S.tr=gbuild(items,lv,ix,0,'');
+ if(!S.gc){S.gc=new Set();if(items.length>400)gwalk(S.tr,g=>{if(g.dp>0)S.gc.add(g.p)})}
+ const ib=c.indexOf('Total_Berat_kg'),nc=c.length+1,op=g=>!!S.q||!S.gc.has(g.p),
+ numc=c.map((_,i)=>d.rows.slice(0,30).every(r=>r[i]===''||num(r[i]))&&d.rows.slice(0,30).some(r=>num(r[i]))),
+ row=t=>`<tr data-j="${t.i}"><td style="color:#94a3b8">${t.i+1}</td>${t.r.map((x,k)=>`<td class="${numc[k]?'n':''}">${cell(x)}</td>`).join('')}</tr>`,
+ kg=g=>{if(ib<0)return'';let b=0;g.it.forEach(t=>{if(num(t.r[ib]))b+=t.r[ib]});return b?`<span class="gm">${Math.round(b).toLocaleString('id-ID')} kg</span>`:''},
+ rd=a=>a.map(g=>`<tr class="gh" data-g="${esc(g.p)}" data-d="${g.dp}"><td colspan="${nc}" style="padding-left:${14+g.dp*24}px"><i class="gar${op(g)?' o':''}">▸</i>${esc(g.l)}<span class="gm">${g.it.length} data</span>${kg(g)}</td></tr>${op(g)?(g.ch?rd(g.ch):g.it.map(row).join('')):''}`).join('');
+ $('#view tbody').innerHTML=rd(S.tr);
+ $('#view .pgw').innerHTML=`<span>${items.length.toLocaleString('id-ID')} data · ${S.tr.length} ${GL.find(l=>l[0]===lv[0])[1].toLowerCase()}</span>`}
+function drawF(){
  const d=S.cache[S.cur],v=view(),tot=v.rows.length,pages=Math.max(1,Math.ceil(tot/S.ps));if(S.pg>pages)S.pg=pages;
  const from=(S.pg-1)*S.ps,rows=v.rows.slice(from,from+S.ps);
  const numc=d.cols.map((c,i)=>d.rows.slice(0,30).every(r=>r[i]===''||num(r[i]))&&d.rows.slice(0,30).some(r=>num(r[i])));
@@ -394,6 +433,9 @@ const V=$('#view');
 V.addEventListener('input',e=>{if(e.target.id==='q'){S.q=e.target.value;S.pg=1;draw()}});
 V.addEventListener('change',e=>{if(e.target.id==='ps'){S.ps=+e.target.value;S.pg=1;draw()}});
 V.addEventListener('click',e=>{
+ const gh=e.target.closest('tr.gh');if(gh){const p=gh.dataset.g;S.gc.has(p)?S.gc.delete(p):S.gc.add(p);draw();return}
+ const gl=e.target.closest('.gc[data-l]');if(gl){const k=gl.dataset.l,i=S.gl.indexOf(k);i<0?S.gl.push(k):S.gl.splice(i,1);S.gc=null;draw();return}
+ const ga=e.target.closest('.gc[data-a]');if(ga){S.gc=new Set();if(ga.dataset.a==='c')gwalk(S.tr,g=>S.gc.add(g.p));draw();return}
  const th=e.target.closest('th[data-i]');if(th){const i=+th.dataset.i;S.sd=S.si===i?-S.sd:1;S.si=i;draw();return}
  const pg=e.target.closest('.pg');if(pg&&!pg.disabled){S.pg+=+pg.dataset.p;draw();return}
  const ex=e.target.closest('.ex');if(ex){({x:xls,p:pdf,t:prn})[ex.dataset.e]();return}
