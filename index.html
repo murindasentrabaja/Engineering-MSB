@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b2a63"><link rel="icon" id="fav">
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b2a63"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="icon" id="fav">
 <title>ERP Engineering — PT Murinda Sentra Baja</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -278,6 +278,63 @@ tbody tr:not(.gh):nth-child(even) td{background:#f8fafd}
 .dg small{flex:0 0 128px;margin:0;font-size:12.5px;font-weight:600;color:#64748b}
 .dg b{flex:1;min-width:0;font-size:14px;font-weight:600;color:#1e293b}
 @media(max-width:760px){.dg{columns:1;padding:4px 16px 16px}.dg small{flex-basis:112px}}
+
+/* ===== PONSEL v2: kartu data, sheet detail, header ringkas ===== */
+html{-webkit-text-size-adjust:100%}body{-webkit-tap-highlight-color:transparent}
+#srt,#sdb,#vmb,.mo{display:none}.exg{display:contents}
+.nv2{display:flex;align-items:center;gap:11px;width:100%;min-height:48px;padding:6px 10px;margin-bottom:2px;border:0;border-radius:14px;background:none;font-weight:600;color:#475569;text-align:left;cursor:pointer}
+.pf{align-items:center;gap:11px;padding:8px 10px}.pf b{display:block}.pf small{color:var(--mut)}
+@keyframes sheet{from{transform:translateY(100%)}}
+@media(max-width:860px){
+body{overscroll-behavior:none}
+#side,#top,.card{-webkit-backdrop-filter:none;backdrop-filter:none}
+#side{background:#fff;overscroll-behavior:contain}#top,.card{background:rgba(255,255,255,.94)}
+.mo{display:flex}.grp.mo{display:block}.nav{min-height:48px}
+#top{flex-wrap:nowrap;padding:8px 10px;border-radius:18px}
+#top h2{font-size:17px;text-overflow:ellipsis}
+#clk,#shb,#smb,#out{display:none}
+.tb{width:44px;height:44px}.usr{padding:3px;border-radius:50%}
+/* login */
+#login{overflow-y:auto;padding:16px}#cv{position:fixed}#lc{margin:auto;padding:30px 22px;width:min(400px,100%)}
+/* toolbar */
+.bar{display:grid;grid-template-columns:auto 1fr 44px 44px;gap:8px;padding:8px;align-items:center}
+.sr{grid-column:1/-1;min-width:0}.sr input{height:46px}
+#srt{display:block;min-width:0;height:44px;padding:0 10px;border:1px solid #cdd8ea;border-radius:12px;background:#fff;color:var(--ink)}
+#sdb,#vmb{display:grid;font-size:18px}#dsb{display:none}
+.exg{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.exg .ex{justify-content:center;min-height:44px;padding:8px}
+.gb{flex-wrap:nowrap;overflow-x:auto;margin:0 0 8px;padding:2px 2px 6px;scrollbar-width:none}.gb::-webkit-scrollbar{display:none}.gb>*{flex:none}.gc{min-height:40px}
+.pgw{flex-direction:column;align-items:stretch;padding:10px 12px;gap:8px}
+.pgw>span:last-child{display:flex;align-items:center;gap:8px}
+.pgw select{height:44px;min-width:70px;margin-right:auto;padding:0 8px;border:1px solid #cdd8ea;border-radius:12px;background:#fff}
+.pg{min-height:44px;min-width:60px;font-size:15px}
+/* detail jadi sheet dari bawah */
+#ov{padding:0;place-items:end center}
+#md{width:100%;max-height:92dvh;border-radius:26px 26px 0 0;animation:sheet .35s cubic-bezier(.2,.8,.2,1);padding-bottom:env(safe-area-inset-bottom)}
+#md h3{padding:22px 16px 12px 18px;border-radius:26px 26px 0 0}
+#md h3::before{content:"";position:absolute;top:8px;left:50%;width:42px;height:4px;margin-left:-21px;border-radius:4px;background:#cbd5e1}
+.dg small{flex-basis:104px}
+/* mode kartu (default di ponsel) */
+body:not(.tbl) .tc thead{display:none}
+body:not(.tbl) .tc table,body:not(.tbl) .tc tbody{display:block;white-space:normal}
+body:not(.tbl) .tc .tw{padding:4px 0 10px;background:#f1f5fb;overflow-x:hidden}
+body:not(.tbl) .tc tbody tr:not(.gh){position:relative;display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:8px 10px;padding:12px 36px 12px 14px;background:#fff;border:1px solid #dbe4f3;border-radius:16px;box-shadow:0 2px 8px rgba(15,63,143,.06)}
+body:not(.tbl) .tc tbody tr:not(.gh):active{background:#eef4ff}
+body:not(.tbl) .tc tbody tr:not(.gh)::after{content:"›";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:26px;color:#94a3b8}
+body:not(.tbl) .tc tbody tr:not(.gh) td{display:block;min-width:0;max-width:none;padding:0;border:0;background:none;overflow:visible;white-space:normal;word-break:break-word;text-align:left;font-size:14px}
+body:not(.tbl) .tc tbody tr:not(.gh) td:first-child{display:none}
+body:not(.tbl) .tc tbody tr:not(.gh) td:nth-child(2){grid-column:1/-1;padding-bottom:7px;border-bottom:1px solid #e9eef7;font-size:15.5px;font-weight:800;color:#0f3f8f}
+body:not(.tbl) .tc tbody tr:not(.gh) td:nth-child(n+9){display:none}
+body:not(.tbl) .tc tbody tr:not(.gh) td:nth-child(n+3)::before{content:attr(data-l);display:block;margin-bottom:1px;font-size:11.5px;font-weight:600;color:#64748b}
+body:not(.tbl) .tc tbody tr:not(.gh) td.emp{display:block;grid-column:1/-1;padding:40px 0;text-align:center}
+body:not(.tbl) .tc tbody tr:not(.gh):has(td.emp)::after{display:none}
+body:not(.tbl) .tc tr.gh{display:block;margin:10px 10px 0}
+body:not(.tbl) .tc tr.gh td{display:block;position:static;border-radius:12px;white-space:normal;line-height:1.45}
+/* mode tabel di ponsel: kolom kunci menempel di kiri */
+body.tbl .tc th:first-child,body.tbl .tc tr:not(.gh) td:first-child:not(.emp){display:none}
+body.tbl .tc th:nth-child(2),body.tbl .tc tr:not(.gh) td:nth-child(2){position:sticky;left:0;z-index:1;box-shadow:1px 0 0 #d5dff2}
+body.tbl .tc th:nth-child(2){z-index:3}
+body.tbl .tc td{padding:12px}
+}
 </style></head><body>
 
 <div id="load"><div class="lw"><div class="ld"><div class="a"></div><div class="b"></div><div class="c">⚙️</div>
@@ -369,7 +426,7 @@ const SM_URL='https://murindasentrabaja.github.io/Sarmut_Engineering/';
 const ready=()=>{clearTimeout(ft);bd.classList.add('ok');hint.hidden=true};
 const go=bust=>{bd.classList.remove('ok');hint.hidden=true;clearTimeout(ft);ft=setTimeout(()=>{if(!bd.classList.contains('ok'))hint.hidden=false},9000);f.src=bust?SM_URL+'?r='+Date.now():SM_URL};
 f.addEventListener('load',()=>{if(f.dataset.l)ready()});
-const open=()=>{const b=btn.getBoundingClientRect();w.style.setProperty('--ox',(b.left+b.width/2-w.offsetLeft)+'px');w.style.setProperty('--oy',(b.top+b.height/2-w.offsetTop)+'px');
+const open=()=>{const b=(btn.getClientRects().length?btn:w).getBoundingClientRect();w.style.setProperty('--ox',(b.left+b.width/2-w.offsetLeft)+'px');w.style.setProperty('--oy',(b.top+b.height/2-w.offsetTop)+'px');
  if(!f.dataset.l){f.dataset.l=1;go()}sm.classList.add('on');sm.setAttribute('aria-hidden','false');setTimeout(()=>$('#smx').focus(),60)};
 const close=()=>{sm.classList.remove('on');sm.setAttribute('aria-hidden','true');btn.focus()};
 btn.onclick=open;$('#smx').onclick=close;$('#smr').onclick=()=>go(1);$('#smz').onclick=()=>sm.classList.toggle('mx');
@@ -388,7 +445,7 @@ function f(){if(L.style.display==='none'){run=0;return}x.clearRect(0,0,W,H);cons
  for(let i=P.length-1;i>=0;i--){const p=P[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.12*D;p.l-=.022;if(p.l<=0){P.splice(i,1);continue}x.strokeStyle=`rgba(255,${150+p.l*90|0},60,${p.l})`;x.lineWidth=2*D*p.l;x.beginPath();x.moveTo(p.x,p.y);x.lineTo(p.x-p.vx*2,p.y-p.vy*2);x.stroke()}
  requestAnimationFrame(f)}
 window.startFx=()=>{if(run)return;run=1;rs();f()};
-L.addEventListener('pointermove',e=>{m.x=e.clientX;m.y=e.clientY;lc.style.transform=`perspective(900px) rotateX(${(e.clientY/innerHeight-.5)*-6}deg) rotateY(${(e.clientX/innerWidth-.5)*6}deg)`});
+L.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;m.x=e.clientX;m.y=e.clientY;lc.style.transform=`perspective(900px) rotateX(${(e.clientY/innerHeight-.5)*-6}deg) rotateY(${(e.clientX/innerWidth-.5)*6}deg)`});
 L.addEventListener('pointerdown',e=>{if(!e.target.closest('#lc'))spark(e.clientX,e.clientY)});
 addEventListener('resize',()=>{if(run)rs()});startFx();setTimeout(()=>spark(innerWidth*.5,innerHeight*.3),1000)})();
 $('#eye').onclick=()=>{const p=$('#pass');p.type=p.type==='password'?'text':'password'};
@@ -410,7 +467,7 @@ function enter(){
  $('#login').style.display='none';$('#app').classList.add('on');
  $('#un').textContent=S.user.nama;$('#ur').textContent=S.user.role;$('#av').textContent=S.user.nama.charAt(0).toUpperCase();
  let n=0,h='';for(const g of MODS){h+=`<div class="grp">${g[0].toUpperCase()}</div>`;for(const m of g[1]){const c=PAL[n%PAL.length];h+=`<a class="nav" role="button" tabindex="0" title="${m[1]}" data-k="${m[0]}"><span class="ic" style="--c1:${c[0]};--c2:${c[1]};--d:${(n*.25)%3}s"><i>${m[2]}</i></span><span class="t">${m[1]}</span></a>`;n++}}
- $('#nav').innerHTML=h;go('dash');setTimeout(prefetch,1200)}
+ h+=MOBX();$('#nav').innerHTML=h;go('dash');setTimeout(prefetch,1200)}
 $('#nav').addEventListener('click',e=>{const a=e.target.closest('.nav');if(a){go(a.dataset.k);closeSb()}});
 $('#nav').addEventListener('keydown',e=>{const a=e.target.closest('.nav');if(a&&(e.key==='Enter'||e.key===' ')){e.preventDefault();go(a.dataset.k);closeSb()}});
 const closeSb=()=>{$('#side').classList.remove('on');$('#sb').classList.remove('on')};
@@ -484,7 +541,7 @@ function gx(){
  if(!S.gc){S.gc=new Set();if(items.length>400)gwalk(S.tr,g=>{if(g.dp>0)S.gc.add(g.p)})}
  const ib=c.indexOf('Total_Berat_kg'),nc=c.length+1,op=g=>!!S.q||!S.gc.has(g.p),
  numc=c.map((_,i)=>d.rows.slice(0,30).every(r=>r[i]===''||num(r[i]))&&d.rows.slice(0,30).some(r=>num(r[i]))),
- row=t=>`<tr data-j="${t.i}"><td style="color:#94a3b8">${t.i+1}</td>${t.r.map((x,k)=>`<td class="${numc[k]?'n':''}">${cell(x)}</td>`).join('')}</tr>`,
+ row=t=>`<tr data-j="${t.i}"><td style="color:#94a3b8">${t.i+1}</td>${t.r.map((x,k)=>`<td class="${numc[k]?'n':''}" data-l="${esc(c[k].replace(/_/g,' '))}">${cell(x)}</td>`).join('')}</tr>`,
  kg=g=>{if(ib<0)return'';let b=0;g.it.forEach(t=>{if(num(t.r[ib]))b+=t.r[ib]});return b?`<span class="gm">${Math.round(b).toLocaleString('id-ID')} kg</span>`:''},
  rd=a=>a.map(g=>`<tr class="gh" data-g="${esc(g.p)}" data-d="${g.dp}"><td colspan="${nc}" style="padding-left:${14+g.dp*24}px"><i class="gar${op(g)?' o':''}">▸</i>${esc(g.l)}<span class="gm">${g.it.length} data</span>${kg(g)}</td></tr>${op(g)?(g.ch?rd(g.ch):g.it.map(row).join('')):''}`).join('');
  $('#view tbody').innerHTML=rd(S.tr);
@@ -494,10 +551,10 @@ function drawF(){
  const from=(S.pg-1)*S.ps,rows=v.rows.slice(from,from+S.ps);
  const numc=d.cols.map((c,i)=>d.rows.slice(0,30).every(r=>r[i]===''||num(r[i]))&&d.rows.slice(0,30).some(r=>num(r[i])));
  const qa=$('#q'),keep=qa&&document.activeElement===qa,ss=keep?qa.selectionStart:0,se=keep?qa.selectionEnd:0;
- $('#view').innerHTML=`<div class="pv"><div class="bar"><div class="sr"><span>🔎</span><input id="q" placeholder="Cari data…" value="${esc(S.q)}"></div><span class="cnt">${tot.toLocaleString('id-ID')} data</span><button class="tb" id="dsb" title="Ubah kepadatan tampilan" aria-label="Kepadatan tampilan"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg></button>
- <button class="ex x rip" data-e="x"><i>📗</i>Excel</button><button class="ex p rip" data-e="p"><i>📕</i>PDF</button><button class="ex t rip" data-e="t"><i>🖨️</i>Print</button></div>
+ $('#view').innerHTML=`<div class="pv"><div class="bar"><div class="sr"><span>🔎</span><input id="q" placeholder="Cari data…" value="${esc(S.q)}"></div><span class="cnt">${tot.toLocaleString('id-ID')} data</span><select id="srt" aria-label="Urutkan data"><option value="-1">Urutan asli</option>${d.cols.map((c,i)=>`<option value="${i}"${S.si===i?' selected':''}>${esc(c.replace(/_/g,' '))}</option>`).join('')}</select><button class="tb" id="sdb" aria-label="Balik arah urutan">${S.sd>0?'↑':'↓'}</button><button class="tb" id="vmb" aria-label="Ganti tampilan kartu atau tabel">▦</button><button class="tb" id="dsb" title="Ubah kepadatan tampilan" aria-label="Kepadatan tampilan"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg></button>
+ <div class="exg"><button class="ex x rip" data-e="x"><i>📗</i>Excel</button><button class="ex p rip" data-e="p"><i>📕</i>PDF</button><button class="ex t rip" data-e="t"><i>🖨️</i>Print</button></div></div>
  <div class="card tc"><div class="tw"><table><thead><tr><th style="width:44px">#</th>${d.cols.map((c,i)=>`<th data-i="${i}">${esc(c.replace(/_/g,' '))} ${S.si===i?(S.sd>0?'▲':'▼'):''}</th>`).join('')}</tr></thead>
- <tbody>${rows.map((r,j)=>`<tr data-j="${from+j}" style="animation-delay:${Math.min(j,20)*.015}s"><td style="color:#94a3b8">${from+j+1}</td>${r.map((c,i)=>`<td class="${numc[i]?'n':''}">${cell(c)}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${d.cols.length+1}" class="emp">🗂️ Data tidak ditemukan</td></tr>`}</tbody></table></div>
+ <tbody>${rows.map((r,j)=>`<tr data-j="${from+j}" style="animation-delay:${Math.min(j,20)*.015}s"><td style="color:#94a3b8">${from+j+1}</td>${r.map((c,i)=>`<td class="${numc[i]?'n':''}" data-l="${esc(d.cols[i].replace(/_/g,' '))}">${cell(c)}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${d.cols.length+1}" class="emp">🗂️ Data tidak ditemukan</td></tr>`}</tbody></table></div>
  <div class="pgw"><span>${tot.toLocaleString('id-ID')} data · Halaman ${S.pg}/${pages}</span><span>Tampilkan <select id="ps">${[25,50,100,250].map(n=>`<option ${n===S.ps?'selected':''}>${n}</option>`).join('')}</select>
  <button class="pg rip" data-p="-1" ${S.pg<=1?'disabled':''}>◀</button><button class="pg rip" data-p="1" ${S.pg>=pages?'disabled':''}>▶</button></span></div></div></div>`;
  if(keep){const q=$('#q');q.focus();q.setSelectionRange(ss,se)}}
@@ -564,5 +621,14 @@ V.addEventListener('keydown',e=>{if(e.key==='Escape'&&e.target.id==='q'&&S.q){cl
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)){const q=$('#q');if(q){e.preventDefault();q.focus()}}});
 try{if(localStorage.getItem('erp_pd'))document.body.classList.add('pd')}catch(_){}
 V.addEventListener('mouseover',e=>{const td=e.target.closest('td');if(td&&!td.title&&td.scrollWidth>td.clientWidth+1)td.title=td.textContent});
+
+/* ===== PONSEL v2 ===== */
+function MOBX(){const u=S.user;return `<div class="grp mo">PINTASAN</div><button class="nv2 mo" data-x="so"><span class="ic" style="--c1:#22c55e;--c2:#14b8a6"><i>📑</i></span>Sheet Sales Order</button><button class="nv2 mo" data-x="sm"><span class="ic" style="--c1:#f59e0b;--c2:#ef4444"><i>🎯</i></span>Sasaran Mutu</button><div class="grp mo">AKUN</div><div class="pf mo"><span class="av">${esc(u.nama.charAt(0).toUpperCase())}</span><div><b>${esc(u.nama)}</b><small>${esc(u.role)}</small></div></div><button class="nv2 mo" data-x="out"><span class="ic" style="--c1:#ef4444;--c2:#be123c"><i>🚪</i></span>Keluar</button>`}
+$('#nav').addEventListener('click',e=>{const b=e.target.closest('.nv2');if(!b)return;closeSb();({so:()=>$('#shb').click(),sm:()=>$('#smb').click(),out:()=>logout()})[b.dataset.x]()});
+V.addEventListener('change',e=>{if(e.target.id==='srt'){S.si=+e.target.value;S.sd=1;draw(1)}});
+V.addEventListener('click',e=>{
+ if(e.target.closest('#sdb')){if(S.si>=0){S.sd*=-1;draw(1)}else toast('Pilih kolom urutan terlebih dahulu');return}
+ if(e.target.closest('#vmb')){const on=document.body.classList.toggle('tbl');try{localStorage.setItem('erp_vm',on?'t':'c')}catch(_){}toast(on?'Tampilan tabel':'Tampilan kartu')}});
+try{if(localStorage.getItem('erp_vm')==='t')document.body.classList.add('tbl')}catch(_){}
 init();
 </script></body></html>
