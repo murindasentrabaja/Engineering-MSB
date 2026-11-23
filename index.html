@@ -335,6 +335,18 @@ body.tbl .tc th:nth-child(2),body.tbl .tc tr:not(.gh) td:nth-child(2){position:s
 body.tbl .tc th:nth-child(2){z-index:3}
 body.tbl .tc td{padding:12px}
 }
+
+/* ===== INFRAME DI PONSEL ===== */
+a.nv2{text-decoration:none}
+@media(max-width:860px){
+#sm{height:100dvh}
+.smh{gap:8px;padding-right:8px}
+.sd.r{width:44px;height:44px;border-radius:14px;background:#eef3fc;box-shadow:none}
+.sd.r::after{opacity:1;font-size:30px;line-height:44px;color:var(--nv)}
+.smt b{font-size:16px}
+.smc iframe{inset:0 0 env(safe-area-inset-bottom) 0}
+.sms a{padding:12px 18px;border-radius:14px;background:#fff;border:1px solid #cdd8ea;font-size:14px;font-weight:700}
+}
 </style></head><body>
 
 <div id="load"><div class="lw"><div class="ld"><div class="a"></div><div class="b"></div><div class="c">⚙️</div>
@@ -418,7 +430,7 @@ function diagShow(m){const d=$('#diag');d.innerHTML='<div>'+esc(m)+'</div><butto
 /* aset, jam, spreadsheet */
 document.querySelectorAll('[data-lg]').forEach(i=>i.src=LOGO);document.querySelectorAll('[data-ic]').forEach(i=>i.src=ICON);$('#fav').href=ICON;
 (function(){const t=$('#ct'),d=$('#cd'),k=()=>{const n=new Date();t.textContent=n.toLocaleTimeString('id-ID',{hour12:false}).replace(/\./g,':');d.textContent=n.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'})};k();setInterval(k,1000)})();
-$('#shb').onclick=()=>{const f=$('#shf');if(!f.dataset.l){f.src=SHEET_URL.replace('?gid','?rm=minimal&gid');f.dataset.l=1}$('#sh').classList.add('on')};
+$('#shb').onclick=()=>{if(matchMedia('(max-width:860px)').matches){window.open(SHEET_URL,'_blank','noopener');return}const f=$('#shf');if(!f.dataset.l){f.src=SHEET_URL.replace('?gid','?rm=minimal&gid');f.dataset.l=1}$('#sh').classList.add('on')};
 $('#sht').href=SHEET_URL;$('#shx').onclick=()=>$('#sh').classList.remove('on');
 /* ===== Jendela Sasaran Mutu (inframe) ===== */
 const SM_URL='https://murindasentrabaja.github.io/Sarmut_Engineering/';
@@ -427,8 +439,8 @@ const ready=()=>{clearTimeout(ft);bd.classList.add('ok');hint.hidden=true};
 const go=bust=>{bd.classList.remove('ok');hint.hidden=true;clearTimeout(ft);ft=setTimeout(()=>{if(!bd.classList.contains('ok'))hint.hidden=false},9000);f.src=bust?SM_URL+'?r='+Date.now():SM_URL};
 f.addEventListener('load',()=>{if(f.dataset.l)ready()});
 const open=()=>{const b=(btn.getClientRects().length?btn:w).getBoundingClientRect();w.style.setProperty('--ox',(b.left+b.width/2-w.offsetLeft)+'px');w.style.setProperty('--oy',(b.top+b.height/2-w.offsetTop)+'px');
- if(!f.dataset.l){f.dataset.l=1;go()}sm.classList.add('on');sm.setAttribute('aria-hidden','false');setTimeout(()=>$('#smx').focus(),60)};
-const close=()=>{sm.classList.remove('on');sm.setAttribute('aria-hidden','true');btn.focus()};
+ if(!f.dataset.l){f.dataset.l=1;go()}try{history.pushState({sm:1},'')}catch(_){}sm.classList.add('on');sm.setAttribute('aria-hidden','false');setTimeout(()=>$('#smx').focus(),60)};
+const hide=()=>{sm.classList.remove('on');sm.setAttribute('aria-hidden','true');btn.focus()};const close=()=>{if(history.state&&history.state.sm)history.back();else hide()};addEventListener('popstate',()=>{if(sm.classList.contains('on'))hide()});
 btn.onclick=open;$('#smx').onclick=close;$('#smr').onclick=()=>go(1);$('#smz').onclick=()=>sm.classList.toggle('mx');
 $('#smn').href=SM_URL;hint.href=SM_URL;
 sm.addEventListener('mousedown',e=>{if(e.target===sm)close()});
@@ -623,8 +635,8 @@ try{if(localStorage.getItem('erp_pd'))document.body.classList.add('pd')}catch(_)
 V.addEventListener('mouseover',e=>{const td=e.target.closest('td');if(td&&!td.title&&td.scrollWidth>td.clientWidth+1)td.title=td.textContent});
 
 /* ===== PONSEL v2 ===== */
-function MOBX(){const u=S.user;return `<div class="grp mo">PINTASAN</div><button class="nv2 mo" data-x="so"><span class="ic" style="--c1:#22c55e;--c2:#14b8a6"><i>📑</i></span>Sheet Sales Order</button><button class="nv2 mo" data-x="sm"><span class="ic" style="--c1:#f59e0b;--c2:#ef4444"><i>🎯</i></span>Sasaran Mutu</button><div class="grp mo">AKUN</div><div class="pf mo"><span class="av">${esc(u.nama.charAt(0).toUpperCase())}</span><div><b>${esc(u.nama)}</b><small>${esc(u.role)}</small></div></div><button class="nv2 mo" data-x="out"><span class="ic" style="--c1:#ef4444;--c2:#be123c"><i>🚪</i></span>Keluar</button>`}
-$('#nav').addEventListener('click',e=>{const b=e.target.closest('.nv2');if(!b)return;closeSb();({so:()=>$('#shb').click(),sm:()=>$('#smb').click(),out:()=>logout()})[b.dataset.x]()});
+function MOBX(){const u=S.user;return `<div class="grp mo">PINTASAN</div><a class="nv2 mo" data-x="so" href="${SHEET_URL}" target="_blank" rel="noopener"><span class="ic" style="--c1:#22c55e;--c2:#14b8a6"><i>📑</i></span><span>Sheet Sales Order<small style="display:block;font-weight:500;font-size:11.5px;color:#64748b">Dibuka di browser</small></span></a><button class="nv2 mo" data-x="sm"><span class="ic" style="--c1:#f59e0b;--c2:#ef4444"><i>🎯</i></span>Sasaran Mutu</button><div class="grp mo">AKUN</div><div class="pf mo"><span class="av">${esc(u.nama.charAt(0).toUpperCase())}</span><div><b>${esc(u.nama)}</b><small>${esc(u.role)}</small></div></div><button class="nv2 mo" data-x="out"><span class="ic" style="--c1:#ef4444;--c2:#be123c"><i>🚪</i></span>Keluar</button>`}
+$('#nav').addEventListener('click',e=>{const b=e.target.closest('.nv2');if(!b)return;closeSb();if(b.dataset.x==='so')return;({so:()=>$('#shb').click(),sm:()=>$('#smb').click(),out:()=>logout()})[b.dataset.x]()});
 V.addEventListener('change',e=>{if(e.target.id==='srt'){S.si=+e.target.value;S.sd=1;draw(1)}});
 V.addEventListener('click',e=>{
  if(e.target.closest('#sdb')){if(S.si>=0){S.sd*=-1;draw(1)}else toast('Pilih kolom urutan terlebih dahulu');return}
